@@ -28,7 +28,7 @@ def is_liquid(gamma1, x1, x2, RZ2, RZ3):
         return -1
     else:
         return 1
-		
+
 def Smix(x1, x2, RZ2, RZ3):
     # Entropy of mixing
     x3 = 1.0-x1-x2
@@ -52,7 +52,7 @@ def f_min(gamma1, x1, x2, RZ2, RZ3):
         return fs + Smix_term
     else:
         return fl + Smix_term
-		
+
 def dfdx(gamma1, x1, x2, RZ2, RZ3):
     eps = 1e-8
     if x1==0.0:
@@ -86,7 +86,7 @@ def f_liquid(gamma1, x1, x2, RZ2, RZ3):
     # Returns the liquid free energy (minus the solid linear mixing terms)
     x3 = 1.0-x1-x2
     if x3<0.0: 
-	x3 = 0.0
+        x3 = 0.0
     gamma2 = gamma1 * RZ2**(5.0/3.0)
     gamma3 = gamma1 * RZ3**(5.0/3.0)
     # the liquid free energy is linear mixing plus Smix
@@ -95,9 +95,9 @@ def f_liquid(gamma1, x1, x2, RZ2, RZ3):
 def delta_g(x, RZ):
     xx = x**0.5
     RZm1 = RZ-1.0
-    C = 0.05*RZm1**2 / ((1 + 0.64*RZm1)*(1 + 0.5*RZm1**2))	
+    C = 0.05*RZm1**2 / ((1 + 0.64*RZm1)*(1 + 0.5*RZm1**2))    
     denom = 1 + 27.0*RZm1*xx*(xx-0.3)*(xx-0.7)*(xx-1.0)/(1.0+0.1*RZm1)
-    return C/denom	
+    return C/denom    
 
 def f_solid(gamma1, x1, x2, RZ2, RZ3):
     # Returns the solid free energy (minus the linear mixing terms)
@@ -123,20 +123,20 @@ def tangent_points(rat, xsteps, RZ2, RZ3, direction):
     df1 = np.array([])
     df2 = np.array([])
     for i in range(n):
-    	for j in range(n-i):
-    		if direction == 0:
-    			i1 = j
-    			i2 = i
-    		else:
-    			i1 = i
-    			i2 = j
-    		x1vec = np.append(x1vec,x1[i1])
-    		x2vec = np.append(x2vec,x1[i2])		
-    		fmin = np.append(fmin, f_min(gamma1,x1[i1],x1[i2],RZ2,RZ3))
-    		deriv = dfdx(gamma1,x1[i1],x1[i2],RZ2,RZ3)
-    		df1 = np.append(df1, deriv[0])
-    		df2 = np.append(df2, deriv[1])
-    		#print(i,j,x1[i],x1[j])
+        for j in range(n-i):
+            if direction == 0:
+                i1 = j
+                i2 = i
+            else:
+                i1 = i
+                i2 = j
+            x1vec = np.append(x1vec,x1[i1])
+            x2vec = np.append(x2vec,x1[i2])        
+            fmin = np.append(fmin, f_min(gamma1,x1[i1],x1[i2],RZ2,RZ3))
+            deriv = dfdx(gamma1,x1[i1],x1[i2],RZ2,RZ3)
+            df1 = np.append(df1, deriv[0])
+            df2 = np.append(df2, deriv[1])
+            #print(i,j,x1[i],x1[j])
     
     # we loop through different composition values, find the tangent line at each
     # point, and then test how many times the tangent line intersects the Fmin curve
@@ -163,7 +163,7 @@ def tangent_points(rat, xsteps, RZ2, RZ3, direction):
                 d1 = d1_last
                 d2 = d2_last
             if (direction == 0 and x1vec[i]>0) or (direction==1 and x2vec[i]>0):
-                yield (x1vec[i], x2vec[i], rat, is_liquid(gamma1,x1vec[i],x2vec[i],RZ2,RZ3), d1, d2)			
+                yield (x1vec[i], x2vec[i], rat, is_liquid(gamma1,x1vec[i],x2vec[i],RZ2,RZ3), d1, d2)            
         lastcount = count
         d1_last = d1
         d2_last = d2
