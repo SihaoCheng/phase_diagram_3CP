@@ -111,6 +111,9 @@ def f_solid(gamma1, x1, x2, RZ2, RZ3):
     return gamma1*x1*x2*delta_g(x2/(x1+x2),RZ2) + gamma1*x1*x3*delta_g(x3/(x1+x3),RZ3) + gamma2*x2*x3*delta_g(x3/(x2+x3),RZ3/RZ2) #+ Smix(x1,x2,RZ2,RZ3)
 
 def tangent_points(rat, xsteps, RZ2, RZ3, direction):
+    lastcount = 0
+    count = 0
+    
     # set gamma
     gamma1 = gamma_crit/rat
     
