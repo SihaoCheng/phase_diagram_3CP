@@ -1,14 +1,6 @@
 #cython: boundscheck=True, wraparound=False, cdivision=True
 #
 # Computes the free energy of a 3 component plasma
-#
-# python setup3.py build_ext --inplace
-
-# cdef extern from "math.h":
-# 	double exp(double m)
-# 	double log(double m)
-# 	double sqrt(double m)
-
 import numpy as np
 import matplotlib.pyplot as plt
 
